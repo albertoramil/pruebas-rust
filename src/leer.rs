@@ -25,6 +25,9 @@ struct Rectangle {
     p2: Coordenada,
 }
 
+
+
+
 //implementamos medotos para el objeto rectangulo, utilizando los que hereda
 impl Rectangle {
     // This is a method

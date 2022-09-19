@@ -26,6 +26,10 @@ pub struct Coordenada {
         Coordenada { x: x, y: y }
     }
 }
+
+
+#[derive(Debug)]
+
 //objeto hereda del objeto coordenada por ellos tb tendrá todos sus metodos
 pub struct Rectangle {
     pub p1: Coordenada,

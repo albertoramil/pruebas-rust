@@ -42,13 +42,18 @@ use crate::leer::Coordenada;
     //let a = format!("{}", muestra());
     println!("{}", salida.to_string());
 
-    let resultado: Coordenada=Coordenada { x: (0.0), y: (1.1) };
+
+    let resultado1: Coordenada=Coordenada { x: (0.0), y: (1.1) };
+    println!("Coordenada {:?} print!", resultado1);
+    let resultado2: Coordenada=Coordenada { x: (3.3), y: (4.4) };
+    println!("Coordenada {:?} print!", resultado2);
 
 
+ let resultado3: Rectangle=Rectangle { p1: (resultado1), p2: (resultado2) };
 
-    println!("{:?}", resultado);
 
-    println!("Now {:?} will print!", resultado);
+ println!("Rectangulo {:?} print!", resultado3);
+
      
 
 /* 

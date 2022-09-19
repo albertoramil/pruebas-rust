@@ -1,10 +1,7 @@
-
-
 pub mod leer;
 use std::fmt::format;
 
 use crate::leer::muestra;
-
 
 use crate::leer::calculate_length;
 
@@ -12,28 +9,16 @@ use crate::leer::Rectangle;
 
 use crate::leer::Coordenada;
 
-
-
-
-
-
-
- fn main() {
-
-
-
+fn main() {
     println!("mostrat {}", muestra());
-  //  let palabra String ="estomismo";
+    //  let palabra String ="estomismo";
 
-    let palabra= String::from("estmomismo");
+    let palabra = String::from("estmomismo");
 
+    let tamaño: usize = calculate_length(palabra);
 
-    let tamaño: usize= calculate_length(palabra);
-
-    
     println!(" el tamaño de la palabra es:{}", tamaño.to_string());
 
-    
     let i = 2;
     let a = "berzas";
 
@@ -42,36 +27,34 @@ use crate::leer::Coordenada;
     //let a = format!("{}", muestra());
     println!("{}", salida.to_string());
 
-
-    let resultado1: Coordenada=Coordenada { x: (0.0), y: (1.1) };
+    let resultado1: Coordenada = Coordenada { x: (0.0), y: (1.1) };
     println!("Coordenada {:?} print!", resultado1);
-    let resultado2: Coordenada=Coordenada { x: (3.3), y: (4.4) };
+    let resultado2: Coordenada = Coordenada { x: (3.3), y: (4.4) };
     println!("Coordenada {:?} print!", resultado2);
 
+    let resultado3: Rectangle = Rectangle {
+        p1: (resultado1),
+        p2: (resultado2),
+    };
 
- let resultado3: Rectangle=Rectangle { p1: (resultado1), p2: (resultado2) };
-
-
- println!("Rectangulo {:?} print!", resultado3);
-
-     
-
-/* 
-                 let rectangle = Rectangle {
-                          // Associated functions are called using double colons
-                           p1: Coordenada::Coordenada.origin(),
-                          p2: Coordenada::Coordenada.new(3.0, 4.0),
-                       }; */
+    println!("Rectangulo {:?} print!", resultado3);
 
 
+    println!("Area {:?} print!", resultado3.area());
+
+
+
+
+
+
+
+    /*
+    let rectangle = Rectangle {
+             // Associated functions are called using double colons
+              p1: Coordenada::Coordenada.origin(),
+             p2: Coordenada::Coordenada.new(3.0, 4.0),
+          }; */
 }
-
-
-
-
-
-
-
 
 // fn main() {
 //     let rectangle = Rectangle {
@@ -107,4 +90,3 @@ use crate::leer::Coordenada;
 //     //pair.destroy();
 //     // TODO ^ Try uncommenting this line
 // }
-

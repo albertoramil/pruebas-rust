@@ -27,20 +27,20 @@ fn main() {
     //let a = format!("{}", muestra());
     println!("{}", salida.to_string());
 
-    let resultado1: Coordenada = Coordenada { x: (0.0), y: (1.1) };
-    println!("Coordenada {:?} print!", resultado1);
-    let resultado2: Coordenada = Coordenada { x: (3.3), y: (4.4) };
-    println!("Coordenada {:?} print!", resultado2);
+    let micoordenada1: Coordenada = Coordenada { x: (0.0), y: (1.1) };
+    println!("Coordenada 1 {:?} print!", micoordenada1);
+    let micoordenada2: Coordenada = Coordenada { x: (3.3), y: (4.4) };
+    println!("Coordenada 2 {:?} print!", micoordenada2);
 
-    let resultado3: Rectangle = Rectangle {
-        p1: (resultado1),
-        p2: (resultado2),
+    let mirectangulo: Rectangle = Rectangle {
+        p1: (micoordenada1),
+        p2: (micoordenada2),
     };
 
-    println!("Rectangulo {:?} print!", resultado3);
+    println!("Rectangulo {:?} print!",mirectangulo);
 
 
-    println!("Area {:?} print!", resultado3.area());
+    println!("Area {:?} print!", mirectangulo.area());
 
 
 

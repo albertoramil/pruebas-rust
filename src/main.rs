@@ -12,6 +12,12 @@ use crate::triangulorectangulotype::Coordenadatri;
 use crate::triangulorectangulotype::Triangulo;
 
 
+pub mod rlib;
+
+
+
+
+
 fn main() {
     println!("mostrat {}", muestra());
     //  let palabra String ="estomismo";
@@ -72,8 +78,28 @@ fn main() {
   println!("Triangulo {:?} print!", mitriangulo);
   println!("Area {:?} print!", mitriangulo.area());
   println!("Perimetro  triangulo{:?} print!", mitriangulo.perimeter());
-   
 
+ 
+
+let mut entrada = rlib::Command::new();
+
+while entrada.accion != "salir" {
+  entrada = rlib::get_input();
+if  entrada.accion == "triangulo" {
+  println!("Triangulo {:?} print!", mitriangulo);
+  println!("Area {:?} print!", mitriangulo.area());
+  println!("Perimetro  triangulo{:?} print!", mitriangulo.perimeter());}
+
+
+
+if  entrada.accion == "rectangulo" {
+  println!("Rectangulo {:?} print!", mirectangulo2);
+  println!("Area {:?} print!", mirectangulo2.area());
+  println!("Perimetro {:?} print!", mirectangulo2.perimeter());}
+ 
+
+
+}
 
 
 

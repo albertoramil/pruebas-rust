@@ -1,13 +1,20 @@
 use std::string;
 
+
+
+
+
+
+#[derive(Debug)]
+
 // creo el objeto coordenada
-struct Coordenada {
-    x: f64,
-    y: f64,
+pub struct Coordenada {
+    pub  x: f64,
+    pub  y: f64,
 }
 
 //todos los metodos para los objetos coordenada que comparten la struct anterior
-impl Coordenada {
+  impl Coordenada {
     //funcion origen que devuelve un objeto coordenada, en este caso el (0,0)
     pub fn origen() -> Coordenada {
         Coordenada { x: 0.0, y: 0.0 }
@@ -20,16 +27,15 @@ impl Coordenada {
     }
 }
 //objeto hereda del objeto coordenada por ellos tb tendrá todos sus metodos
-struct Rectangle {
-    p1: Coordenada,
-    p2: Coordenada,
+pub struct Rectangle {
+    pub p1: Coordenada,
+    pub  p2: Coordenada,
 }
 
 
 
-
 //implementamos medotos para el objeto rectangulo, utilizando los que hereda
-impl Rectangle {
+ impl Rectangle {
     // This is a method
     // `&self` is sugar for `self: &Self`, where `Self` is the type of the
     // caller object. In this case `Self` = `Rectangle`

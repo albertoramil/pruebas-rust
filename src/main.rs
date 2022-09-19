@@ -8,15 +8,24 @@ use crate::leer::muestra;
 
 use crate::leer::calculate_length;
 
+use crate::leer::Rectangle;
+
+use crate::leer::Coordenada;
+
+
+
+
+
+
 
  fn main() {
+
+
+
     println!("mostrat {}", muestra());
   //  let palabra String ="estomismo";
 
     let palabra= String::from("estmomismo");
-
-
-
 
 
     let tamaño: usize= calculate_length(palabra);
@@ -32,6 +41,24 @@ use crate::leer::calculate_length;
 
     //let a = format!("{}", muestra());
     println!("{}", salida.to_string());
+
+    let resultado: Coordenada=Coordenada { x: (0.0), y: (1.1) };
+
+
+
+    println!("{:?}", resultado);
+
+    println!("Now {:?} will print!", resultado);
+     
+
+/* 
+                 let rectangle = Rectangle {
+                          // Associated functions are called using double colons
+                           p1: Coordenada::Coordenada.origin(),
+                          p2: Coordenada::Coordenada.new(3.0, 4.0),
+                       }; */
+
+
 }
 
 
@@ -44,8 +71,8 @@ use crate::leer::calculate_length;
 // fn main() {
 //     let rectangle = Rectangle {
 //         // Associated functions are called using double colons
-//         p1: Point::origin(),
-//         p2: Point::new(3.0, 4.0),
+//         p1: Coordenada::origin(),
+//         p2: Coordenada::new(3.0, 4.0),
 //     };
 
 //     // Methods are called using the dot operator
@@ -55,8 +82,8 @@ use crate::leer::calculate_length;
 //     println!("Rectangle area: {}", rectangle.area());
 
 //     let mut square = Rectangle {
-//         p1: Point::origin(),
-//         p2: Point::new(1.0, 1.0),
+//         p1: Coordenada::origin(),
+//         p2: Coordenada::new(1.0, 1.0),
 //     };
 
 //     // Error! `rectangle` is immutable, but this method requires a mutable

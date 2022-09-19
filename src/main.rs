@@ -32,19 +32,29 @@ fn main() {
     let micoordenada2: Coordenada = Coordenada { x: (3.3), y: (4.4) };
     println!("Coordenada 2 {:?} print!", micoordenada2);
 
+
+
+
     let mirectangulo: Rectangle = Rectangle {
         p1: (micoordenada1),
         p2: (micoordenada2),
     };
-
     println!("Rectangulo {:?} print!",mirectangulo);
-
-
     println!("Area {:?} print!", mirectangulo.area());
+    println!("Perimetro {:?} print!", mirectangulo.perimeter());
 
 
 
 
+    let micoordenada3=  Coordenada::origen();
+    
+
+    println!("Coordenada creada {:?} print!", micoordenada3);
+
+    let micoordenada4=  Coordenada::nueva(2.0,6.0);
+
+  
+    println!("Coordenada creada {:?} print!", micoordenada4);
 
 
 

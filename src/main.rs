@@ -74,9 +74,8 @@ pub mod rlib;
 //     while entrada.accion != "salir" {
 //         entrada = rlib::get_input();
 //         if entrada.accion == "triangulo" {
-         
-//           println!("Triangulo datosssssssssss{:?} print!",  entrada.datos);
 
+//           println!("Triangulo datosssssssssss{:?} print!",  entrada.datos);
 
 //             println!("Triangulo {:?} print!", mitriangulo);
 //             println!("Area {:?} print!", mitriangulo.area());
@@ -93,14 +92,7 @@ pub mod rlib;
 //     }
 // }
 
-
-
-
-
-
-
-// para consumir un get 
-
+// para consumir un get
 
 //curl -X GET 127.0.0.1:8181/ -H  "accept: application/json" -H  "Content-Type: application/json"
 // use tokio::io::AsyncWriteExt;
@@ -127,32 +119,25 @@ pub mod rlib;
 //     stream.write(response.as_bytes()).await.unwrap();
 //     stream.flush().await.unwrap();
 // }
-
-
-
-
-
-
-
-use serde::Deserialize;
-use reqwest::Error;
-
-#[derive(Deserialize, Debug)]
-struct User {
-    login: String,
-    id: u32,
-}
+use reqwest::Result;
+use std::time::Duration;
+use reqwest::ClientBuilder;
 
 #[tokio::main]
-async fn main() -> Result<(), Error> {
-    let request_url = format!("https://api.github.com/repos/{owner}/{repo}/stargazers",
-                              owner = "rust-lang-nursery",
-                              repo = "rust-cookbook");
+async fn main() -> Result<()> {
+    let user = "tipoperfil";
+    let request_url = format!("http://localhost:3000/v1/{}", user);
     println!("{}", request_url);
-    let response = reqwest::get(&request_url).await?;
 
-    let users: Vec<User> = response.json().await?;
-    println!("{:?}", users);
+    let timeout = Duration::new(5, 0);
+    let client = ClientBuilder::new().timeout(timeout).build()?;
+    let response = client.head(&request_url).send().await?;
+
+    if response.status().is_success() {
+        println!("{} is a user!", user);
+    } else {
+        println!("{} is not a user!", user);
+    }
+
     Ok(())
 }
-

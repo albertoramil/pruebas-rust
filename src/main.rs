@@ -119,25 +119,115 @@ pub mod rlib;
 //     stream.write(response.as_bytes()).await.unwrap();
 //     stream.flush().await.unwrap();
 // }
-use reqwest::Result;
-use std::time::Duration;
+
+
+
+pub struct miRespuesta {
+    pub status: String,
+    pub body: String,
+}
+
+impl miRespuesta {
+    pub fn verDatos(algo: &Response) -> miRespuesta {
+        let palabra = String::from("estmomismo");
+        let r1 = &palabra; // no problem
+        let r2 = &palabra; // no problem
+
+        println!("Headers:\n{:#?}", algo.status());
+        println!("Headers:\n{:?}", algo.status());
+
+        miRespuesta {
+            status: String::from(r1),
+            body: String::from(r2),
+        }
+    }
+}
+
+// pub fn nueva(res:Response) -> miRespuesta {
+//   miRespuesta { status: "x", headers: "y",body:"fsfsd" }
+// }
+
 use reqwest::ClientBuilder;
+use reqwest::Response;
+use reqwest::Result;
+use std::io::Read;
+use std::time::Duration;
+
+use serde_json::Value;
+use std::error::Error;
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let user = "tipoperfil";
-    let request_url = format!("http://localhost:3000/v1/{}", user);
-    println!("{}", request_url);
+    let res = reqwest::get("http://localhost:3000/v1/tipoperfil").await?;
+    // println!("Status: {}", res.status());
+    // println!("Headers:\n{:#?}", res.headers());
 
-    let timeout = Duration::new(5, 0);
-    let client = ClientBuilder::new().timeout(timeout).build()?;
-    let response = client.head(&request_url).send().await?;
+    // let status = res.status();
 
-    if response.status().is_success() {
-        println!("{} is a user!", user);
-    } else {
-        println!("{} is not a user!", user);
+    //let headers = res.headers();
+
+    let body = res.text().await?;
+
+    let v: Value = serde_json::from_str(&body).unwrap();
+
+    // println!("Body111111111111:\n{}", res.text().await?);
+
+    // println!("Status: {}", status);
+    // println!("Headers:\n{:#?}", headers);
+
+    println!("respuesta estado:\n{:#?}", v);
+    println!("respuesta tiposperfiles:\n{:#?}", v["tiposperfiles"]);
+
+    #[derive(Copy, Clone, Debug, Eq, PartialEq)]
+
+    struct Person {
+        pub name: &'static str,
+        pub age: u32,
     }
+    const PEOPLE: &'static [Person] = &[
+        Person {
+            name: "Jhon",
+            age: 26,
+        },
+        Person {
+            name: "Kyle",
+            age: 22,
+        },
+        Person {
+            name: "Tommy",
+            age: 17,
+        },
+    ];
+
+struct Perfil {
+    pub rol: String,
+    pub createdAt: String,
+    pub id: u32,
+    pub updatedAt: String,
+
+}
+
+
+ 
+    println!("PEOPLEPEOPLEPEOPLEPEOPLEPEOPLE:\n{:#?}", &PEOPLE);
+
+
+    // println!("array &array[1]  :\n{:#?}", array[1]);
+
+    let xs = ["Rust", "Java", "Go", "Python"];
+    println!("xsxsxsxs  :\n{:#?}", xs);
+
+    //  println!("number of elements in array: {}", array.len());
+
+    // if status.is_success() {
+    //     println!(" is a user!", );
+
+    //     println!("{:?} is a user!", status);
+    //     println!("{:?} is a user!", headers);
+
+    // } else {
+    //     println!(" is not a user!", );
+    // }
 
     Ok(())
 }

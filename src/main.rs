@@ -122,100 +122,124 @@ pub mod rlib;
 
 
 
-pub struct miRespuesta {
-    pub status: String,
-    pub body: String,
-}
-
-impl miRespuesta {
-    pub fn verDatos(algo: &Response) -> miRespuesta {
-        let palabra = String::from("estmomismo");
-        let r1 = &palabra; // no problem
-        let r2 = &palabra; // no problem
-
-        println!("Headers:\n{:#?}", algo.status());
-        println!("Headers:\n{:?}", algo.status());
-
-        miRespuesta {
-            status: String::from(r1),
-            body: String::from(r2),
-        }
-    }
-}
-
-// pub fn nueva(res:Response) -> miRespuesta {
-//   miRespuesta { status: "x", headers: "y",body:"fsfsd" }
+// pub struct miRespuesta {
+//     pub status: String,
+//     pub body: String,
 // }
 
-use reqwest::ClientBuilder;
-use reqwest::Response;
-use reqwest::Result;
-use std::io::Read;
-use std::time::Duration;
+// impl miRespuesta {
+//     pub fn verDatos(algo: &Response) -> miRespuesta {
+//         let palabra = String::from("estmomismo");
+//         let r1 = &palabra; // no problem
+//         let r2 = &palabra; // no problem
 
-use serde_json::Value;
-use std::error::Error;
+//         println!("Headers:\n{:#?}", algo.status());
+//         println!("Headers:\n{:?}", algo.status());
+
+//         miRespuesta {
+//             status: String::from(r1),
+//             body: String::from(r2),
+//         }
+//     }
+// }
+
+// // pub fn nueva(res:Response) -> miRespuesta {
+// //   miRespuesta { status: "x", headers: "y",body:"fsfsd" }
+// // }
+
+// use reqwest::ClientBuilder;
+// use reqwest::Response;
+// use reqwest::Result;
+// use std::io::Read;
+// use std::time::Duration;
+
+// use serde_json::Value;
+// use std::error::Error;
+
+
+
+use reqwest;
+use serde::{Deserialize, Serialize};
+
+
+#[derive(Serialize, Deserialize, Debug)]
+struct Perfil {
+     Rol: String,
+     createdAt: String,
+     id: u32,
+     updatedAt: String,
+
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+struct APIResponse {
+    success: bool,
+    tiposperfiles: Vec<Perfil>
+}
 
 #[tokio::main]
-async fn main() -> Result<()> {
-    let res = reqwest::get("http://localhost:3000/v1/tipoperfil").await?;
-    // println!("Status: {}", res.status());
+async fn main() {
+   // let res = reqwest::get("http://localhost:3000/v1/tipoperfil").await.unwrap();
+
+    let url = "http://localhost:3000/v1/tipoperfil/".to_string();
+         let res = reqwest::get(url).await.unwrap();
+
+
+   
+         println!("pasandoporaquiii: {:?}", "3");
+         match res.status() {
+                    reqwest::StatusCode::OK => {
+                        // si foi ben parsease o json
+
+                        match res.json::<APIResponse>().await {
+
+                            Ok(parsed) => imprimir(&parsed),
+                            Err(error) => println!("{:?}",error)
+                        }
+                    }
+                    other => {
+                        panic!("Explotou algo: {:?}", other);
+                    }
+                }
+            }
+     
+
+
+
+     //println!("pasandoporaquiii: {:?}", body);
+    // println!("{}", serde_json::to_string_pretty(&body).unwrap());
+
+
+    // let v: Value = serde_json::from_str(&body).unwrap();
+
+
+
+
     // println!("Headers:\n{:#?}", res.headers());
 
     // let status = res.status();
 
     //let headers = res.headers();
 
-    let body = res.text().await?;
 
-    let v: Value = serde_json::from_str(&body).unwrap();
+    //let v: Value = serde_json::from_str(&body).unwrap();
 
     // println!("Body111111111111:\n{}", res.text().await?);
 
     // println!("Status: {}", status);
     // println!("Headers:\n{:#?}", headers);
 
-    println!("respuesta estado:\n{:#?}", v);
-    println!("respuesta tiposperfiles:\n{:#?}", v["tiposperfiles"]);
+    // println!("respuesta estado:\n{:#?}", v);
+    // println!("respuesta tiposperfiles:\n{:#?}", v["tiposperfiles"]);
 
-    #[derive(Copy, Clone, Debug, Eq, PartialEq)]
-
-    struct Person {
-        pub name: &'static str,
-        pub age: u32,
-    }
-    const PEOPLE: &'static [Person] = &[
-        Person {
-            name: "Jhon",
-            age: 26,
-        },
-        Person {
-            name: "Kyle",
-            age: 22,
-        },
-        Person {
-            name: "Tommy",
-            age: 17,
-        },
-    ];
-
-struct Perfil {
-    pub rol: String,
-    pub createdAt: String,
-    pub id: u32,
-    pub updatedAt: String,
-
-}
+    
+// match res.json::<APIResponse>().await {
 
 
- 
-    println!("PEOPLEPEOPLEPEOPLEPEOPLEPEOPLE:\n{:#?}", &PEOPLE);
 
-
-    // println!("array &array[1]  :\n{:#?}", array[1]);
-
-    let xs = ["Rust", "Java", "Go", "Python"];
-    println!("xsxsxsxs  :\n{:#?}", xs);
+//                      Ok(parsed) => imprimir(&parsed),
+//                      Err(error) => println!("{:?}",error)
+//                 }
 
     //  println!("number of elements in array: {}", array.len());
 
@@ -229,5 +253,145 @@ struct Perfil {
     //     println!(" is not a user!", );
     // }
 
-    Ok(())
-}
+
+
+ fn imprimir(prod: &APIResponse) {
+      println!("{:?}", prod);
+
+     println!("Producto: {}", "prod.success");
+
+     
+     println!("Producto: {}", prod.success);
+ }
+
+
+// use reqwest;
+// use serde::{Deserialize, Serialize};
+
+// #[derive(Serialize, Deserialize, Debug)]
+// #[serde(rename_all = "camelCase")]  // discount_percentage ven como discountPercentage
+// struct APIResponse {
+//     id: i32,
+//     title: String,
+//     description: String,
+//     price: f32,
+//     discount_percentage: f32,
+//     rating: f32,
+//     stock: i32,
+//     brand: String,
+//     category: String,
+//     thumbnail: String,
+//     images: Vec<String>,
+// }
+
+// #[tokio::main]
+// async fn main() {
+//     let url = "https://dummyjson.com/products/1".to_string();
+//     let res = reqwest::get(url).await.unwrap();
+
+//     match res.status() {
+//         reqwest::StatusCode::OK => {
+//             // si foi ben parsease o json
+//             match res.json::<APIResponse>().await {
+//                 Ok(parsed) => imprimir(&parsed),
+//                 Err(error) => println!("{:?}",error)
+//             }
+//         }
+//         other => {
+//             panic!("Explotou algo: {:?}", other);
+//         }
+//     }
+// }
+
+// fn imprimir(prod: &APIResponse) {
+//     // println!("{:?}", prod);
+//     println!("Producto: {}", prod.title);
+// }
+
+
+
+
+
+
+
+
+
+
+//////la version que get y deja json a medias
+
+//
+// let res = reqwest::get("http://localhost:3000/v1/tipoperfil").await?;
+// // println!("Status: {}", res.status());
+// // println!("Headers:\n{:#?}", res.headers());
+
+// // let status = res.status();
+
+// //let headers = res.headers();
+
+// let body = res.text().await?;
+
+// let v: Value = serde_json::from_str(&body).unwrap();
+
+// // println!("Body111111111111:\n{}", res.text().await?);
+
+// // println!("Status: {}", status);
+// // println!("Headers:\n{:#?}", headers);
+
+// println!("respuesta estado:\n{:#?}", v);
+// println!("respuesta tiposperfiles:\n{:#?}", v["tiposperfiles"]);
+
+// #[derive(Copy, Clone, Debug, Eq, PartialEq)]
+
+// struct Person {
+//     pub name: &'static str,
+//     pub age: u32,
+// }
+// const PEOPLE: &'static [Person] = &[
+//     Person {
+//         name: "Jhon",
+//         age: 26,
+//     },
+//     Person {
+//         name: "Kyle",
+//         age: 22,
+//     },
+//     Person {
+//         name: "Tommy",
+//         age: 17,
+//     },
+// ];
+
+// struct Perfil {
+// pub rol: String,
+// pub createdAt: String,
+// pub id: u32,
+// pub updatedAt: String,
+
+// }
+
+
+
+// println!("PEOPLEPEOPLEPEOPLEPEOPLEPEOPLE:\n{:#?}", &PEOPLE);
+
+
+// // println!("array &array[1]  :\n{:#?}", array[1]);
+
+// let xs = ["Rust", "Java", "Go", "Python"];
+// println!("xsxsxsxs  :\n{:#?}", xs);
+
+// //  println!("number of elements in array: {}", array.len());
+
+// // if status.is_success() {
+// //     println!(" is a user!", );
+
+// //     println!("{:?} is a user!", status);
+// //     println!("{:?} is a user!", headers);
+
+// // } else {
+// //     println!(" is not a user!", );
+// // }
+
+// Ok(())
+// }
+
+

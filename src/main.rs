@@ -12,85 +12,146 @@ use crate::triangulorectangulotype::Triangulo;
 
 pub mod rlib;
 
-// fn main() {
-//     println!("mostrat {}", muestra());
-//     //  let palabra String ="estomismo";
+use reqwest;
+use serde::{Deserialize, Serialize};
 
-//     let palabra = String::from("estmomismo");
 
-//     let tamaño: usize = calculate_length(palabra);
+#[derive(Serialize, Deserialize, Debug)]
+struct Perfil {
+     Rol: String,
+     createdAt: String,
+     id: u32,
+     updatedAt: String,
+}
 
-//     println!(" el tamaño de la palabra es:{}", tamaño.to_string());
+#[derive(Serialize, Deserialize, Debug)]
+struct APIResponse {
+    success: bool,
+    tiposperfiles: Vec<Perfil>
+}
+fn imprimir(prod: &APIResponse) {
+    println!("{:?}", prod);
 
-//     let i = 2;
-//     let a = "berzas";
+   println!("Producto: {}", "prod.success");
 
-//     let salida = format!("teño {} {}", i, a);
+   
+   println!("Producto: {}", prod.success);
+}
+#[tokio::main]
 
-//     //let a = format!("{}", muestra());
-//     println!("{}", salida.to_string());
+async fn main() {
+    println!("mostrat {}", muestra());
+    //  let palabra String ="estomismo";
 
-//     //************************************* */
-//     let micoordenada1: Coordenada = Coordenada { x: (0.0), y: (1.1) };
-//     println!("Coordenada 1 {:?} print!", micoordenada1);
-//     let micoordenada2: Coordenada = Coordenada { x: (3.3), y: (4.4) };
-//     println!("Coordenada 2 {:?} print!", micoordenada2);
+    let palabra = String::from("estmomismo");
 
-//     //************************************* */
-//     let mirectangulo: Rectangle = Rectangle {
-//         p1: (micoordenada1),
-//         p2: (micoordenada2),
-//     };
-//     println!("Rectangulo {:?} print!", mirectangulo);
-//     println!("Area {:?} print!", mirectangulo.area());
-//     println!("Perimetro {:?} print!", mirectangulo.perimeter());
+    let tamaño: usize = calculate_length(palabra);
 
-//     //************************************* */
-//     let micoordenada3 = Coordenada::origen();
-//     println!("Coordenada creada {:?} print!", micoordenada3);
-//     let micoordenada4 = Coordenada::nueva(2.0, 6.0);
-//     println!("Coordenada creada {:?} print!", micoordenada4);
+    println!(" el tamaño de la palabra es:{}", tamaño.to_string());
 
-//     //************************************* */
-//     let mirectangulo2: Rectangle = Rectangle {
-//         p1: Coordenada::origen(),
-//         p2: Coordenada::nueva(5.0, 8.0),
-//     };
-//     println!("Rectangulo {:?} print!", mirectangulo2);
-//     println!("Area {:?} print!", mirectangulo2.area());
-//     println!("Perimetro {:?} print!", mirectangulo2.perimeter());
+    let i = 2;
+    let a = "berzas";
 
-//     //********************** */
-//     let mitriangulo: Triangulo = Triangulo {
-//         p1: Coordenadatri::origen(),
-//         p2: Coordenadatri::nueva(2.0, 2.0),
-//     };
-//     println!("Triangulo {:?} print!", mitriangulo);
-//     println!("Area {:?} print!", mitriangulo.area());
-//     println!("Perimetro  triangulo{:?} print!", mitriangulo.perimeter());
+    let salida = format!("teño {} {}", i, a);
 
-//     let mut entrada = rlib::Command::new();
+    //let a = format!("{}", muestra());
+    println!("{}", salida.to_string());
 
-//     while entrada.accion != "salir" {
-//         entrada = rlib::get_input();
-//         if entrada.accion == "triangulo" {
+    //************************************* */
+    let micoordenada1: Coordenada = Coordenada { x: (0.0), y: (1.1) };
+    println!("Coordenada 1 {:?} print!", micoordenada1);
+    let micoordenada2: Coordenada = Coordenada { x: (3.3), y: (4.4) };
+    println!("Coordenada 2 {:?} print!", micoordenada2);
 
-//           println!("Triangulo datosssssssssss{:?} print!",  entrada.datos);
+    //************************************* */
+    let mirectangulo: Rectangle = Rectangle {
+        p1: (micoordenada1),
+        p2: (micoordenada2),
+    };
+    println!("Rectangulo {:?} print!", mirectangulo);
+    println!("Area {:?} print!", mirectangulo.area());
+    println!("Perimetro {:?} print!", mirectangulo.perimeter());
 
-//             println!("Triangulo {:?} print!", mitriangulo);
-//             println!("Area {:?} print!", mitriangulo.area());
-//             println!("Perimetro  triangulo{:?} print!", mitriangulo.perimeter());
-//         }else  if entrada.accion == "rectangulo" {
-//             println!("Rectangulo {:?} print!", mirectangulo2);
-//             println!("Area {:?} print!", mirectangulo2.area());
-//             println!("Perimetro {:?} print!", mirectangulo2.perimeter());
-//         }else{
-//           println!("Incorrecto");
-//           println!("Vuelve intentarlo");
+    //************************************* */
+    let micoordenada3 = Coordenada::origen();
+    println!("Coordenada creada {:?} print!", micoordenada3);
+    let micoordenada4 = Coordenada::nueva(2.0, 6.0);
+    println!("Coordenada creada {:?} print!", micoordenada4);
 
-//         }
-//     }
-// }
+    //************************************* */
+    let mirectangulo2: Rectangle = Rectangle {
+        p1: Coordenada::origen(),
+        p2: Coordenada::nueva(5.0, 8.0),
+    };
+    println!("Rectangulo {:?} print!", mirectangulo2);
+    println!("Area {:?} print!", mirectangulo2.area());
+    println!("Perimetro {:?} print!", mirectangulo2.perimeter());
+
+    //********************** */
+    let mitriangulo: Triangulo = Triangulo {
+        p1: Coordenadatri::origen(),
+        p2: Coordenadatri::nueva(2.0, 2.0),
+    };
+    println!("Triangulo {:?} print!", mitriangulo);
+    println!("Area {:?} print!", mitriangulo.area());
+    println!("Perimetro  triangulo{:?} print!", mitriangulo.perimeter());
+
+    let mut entrada = rlib::Command::new();
+  
+
+
+
+
+
+
+
+    while entrada.accion != "salir" {
+        entrada = rlib::get_input();
+        if entrada.accion == "triangulo" {
+
+          println!("Triangulo datosssssssssss{:?} print!",  entrada.datos);
+
+            println!("Triangulo {:?} print!", mitriangulo);
+            println!("Area {:?} print!", mitriangulo.area());
+            println!("Perimetro  triangulo{:?} print!", mitriangulo.perimeter());
+        }else  if entrada.accion == "rectangulo" {
+            println!("Rectangulo {:?} print!", mirectangulo2);
+            println!("Area {:?} print!", mirectangulo2.area());
+            println!("Perimetro {:?} print!", mirectangulo2.perimeter());
+        }
+        
+        else  if entrada.accion == "json" {
+
+
+            let url = "http://localhost:3000/v1/tipoperfil/".to_string();
+            let res = reqwest::get(url).await.unwrap();
+        
+        
+        
+            println!("pasandoporaquiii: {:?}", "3");
+            match res.status() {
+                       reqwest::StatusCode::OK => {
+                           // si foi ben parsease o json
+        
+                           match res.json::<APIResponse>().await {
+        
+                               Ok(parsed) => imprimir(&parsed),
+                               Err(error) => println!("{:?}",error)
+                           }
+                       }
+                       other => {
+                           panic!("Explotou algo: {:?}", other);
+                       }
+                   }
+
+        }
+        else{
+          println!("Incorrecto");
+          println!("Vuelve intentarlo");
+
+        }
+    }
+}
 
 // para consumir un get
 
@@ -158,50 +219,6 @@ pub mod rlib;
 
 
 
-use reqwest;
-use serde::{Deserialize, Serialize};
-
-
-#[derive(Serialize, Deserialize, Debug)]
-struct Perfil {
-     Rol: String,
-     createdAt: String,
-     id: u32,
-     updatedAt: String,
-
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-struct APIResponse {
-    success: bool,
-    tiposperfiles: Vec<Perfil>
-}
-
-#[tokio::main]
-async fn main() {
-   // let res = reqwest::get("http://localhost:3000/v1/tipoperfil").await.unwrap();
-
-    let url = "http://localhost:3000/v1/tipoperfil/".to_string();
-         let res = reqwest::get(url).await.unwrap();
-
-
-   
-         println!("pasandoporaquiii: {:?}", "3");
-         match res.status() {
-                    reqwest::StatusCode::OK => {
-                        // si foi ben parsease o json
-
-                        match res.json::<APIResponse>().await {
-
-                            Ok(parsed) => imprimir(&parsed),
-                            Err(error) => println!("{:?}",error)
-                        }
-                    }
-                    other => {
-                        panic!("Explotou algo: {:?}", other);
-                    }
-                }
-            }
      
 
 
@@ -255,14 +272,7 @@ async fn main() {
 
 
 
- fn imprimir(prod: &APIResponse) {
-      println!("{:?}", prod);
-
-     println!("Producto: {}", "prod.success");
-
-     
-     println!("Producto: {}", prod.success);
- }
+ 
 
 
 // use reqwest;

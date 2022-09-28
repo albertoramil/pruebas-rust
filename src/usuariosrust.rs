@@ -5,7 +5,6 @@
 extern crate rust_comienzo;
 extern crate diesel;
 
-use self::rust_comienzo::*;
 use self::models::*;
 use self::diesel::prelude::*;
 

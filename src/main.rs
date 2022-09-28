@@ -1,6 +1,7 @@
 pub mod rectangulotype;
 use std::fmt::format;
 pub mod getapi;
+pub mod usuariosrust;
 
 use crate::rectangulotype::calculate_length;
 use crate::rectangulotype::muestra;
@@ -11,6 +12,7 @@ pub mod triangulorectangulotype;
 use crate::triangulorectangulotype::Coordenadatri;
 use crate::triangulorectangulotype::Triangulo;
 use crate::getapi::get;
+use crate::usuariosrust::get_usuarios;
 
 pub mod rlib;
 
@@ -103,6 +105,11 @@ pub mod rlib;
             get();
 
         
+
+        } else  if entrada.accion == "tabla" {
+
+
+            get_usuarios();
 
         }
         else{

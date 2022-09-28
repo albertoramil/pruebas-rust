@@ -4,9 +4,10 @@ use serde::{Deserialize, Serialize};
 
 
 #[derive(Serialize, Deserialize, Debug)]
+#[allow(non_snake_case)]
 pub struct Perfil {
      Rol: String,
-     created_at: String,
+     createdAt: String,
      id: u32,
      updatedAt: String,
 }

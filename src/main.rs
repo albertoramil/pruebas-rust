@@ -106,7 +106,7 @@ pub mod rlib;
 
         
 
-        } else  if entrada.accion == "tabla" {
+        } else  if entrada.accion == "bd" {
 
 
             get_usuarios();

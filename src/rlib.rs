@@ -38,7 +38,7 @@ impl Command {
 pub fn get_input() -> Command {
     // prompt
     println!("");
-    print!("De que calcular los datos, triangulo, rectangulo o json> ");
+    print!("De que calcular los datos, triangulo, rectangulo , json o bd> ");
 
     io::stdout().flush().unwrap(); // si no tolea con el orden de los que saca
 

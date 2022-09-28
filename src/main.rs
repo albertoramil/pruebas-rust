@@ -13,6 +13,7 @@ use crate::triangulorectangulotype::Coordenadatri;
 use crate::triangulorectangulotype::Triangulo;
 use crate::getapi::get;
 use crate::usuariosrust::get_usuarios;
+use crate::usuariosrust::crear_usuario;
 
 pub mod rlib;
 
@@ -110,6 +111,7 @@ pub mod rlib;
 
 
             get_usuarios();
+            crear_usuario();
 
         }
         else{

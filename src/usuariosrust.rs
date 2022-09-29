@@ -23,25 +23,6 @@ pub fn get_usuarios() {
     }
 }
 
-// pub fn create_usuariosrust() -> Result<usize, diesel::result::Error> {
-//     use self::schema::usuariosrust::dsl::*;
-//     let conn = &mut establish_connection();
-
-//     let self::schema::usuariosrust::nombre = String::from("titooooo");
-//     let self::schema::usuariosrust::apellidos = String::from("ramillll");
-//     let self::schema::usuariosrust::id: i32 = 3;
-
-//     let nuevo_usuario = Usuariosrust {
-//         id,
-//         nombre,
-//         apellidos,
-//     };
-
-//     diesel::insert_into(usuariosrust::table)
-//         .values(nuevo_usuario)
-//         .execute(conn)
-// }
-
 
 
 pub fn crear_usuario(){
@@ -49,19 +30,25 @@ pub fn crear_usuario(){
     let nombre_info = String::from("titoooooinsertadoooo");
     let apellidos_info = String::from("titooooo");
     use self::schema::usuariosrust::dsl::*;
-
-
-   
-
     let nuevo_usuario:NuevoUsuario = NuevoUsuario {nombre:nombre_info, apellidos:apellidos_info };
-
-
-
-
-
     let usuario_creado=diesel::insert_into(usuariosrust)
         .values(nuevo_usuario)
         .execute(connection)
         .expect("Error creando el usuario");
- 
+
+}
+
+
+
+pub fn actualizar_usuario(id_usuario:i32){
+    use self::schema::usuariosrust::dsl::*;
+    let connection = &mut establish_connection();
+    let usuario_actualizado=diesel::update(usuariosrust.filter(id.eq(id_usuario)))
+    .set((nombre.eq("James"), apellidos.eq("Not Bond")))
+    .execute(connection).unwrap();
+    if usuario_actualizado==1{
+        println!("Usuario con id {} actualizado correctamente!",id_usuario)
+    }else{
+        println!("Se ha producido un error al actualizar el usuario con id {}",id_usuario)
+    }
 }

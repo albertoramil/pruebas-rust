@@ -15,6 +15,8 @@ use crate::getapi::get;
 use crate::usuariosrust::get_usuarios;
 use crate::usuariosrust::crear_usuario;
 
+use crate::usuariosrust::actualizar_usuario;
+
 pub mod rlib;
 
 
@@ -112,6 +114,10 @@ pub mod rlib;
 
             get_usuarios();
             crear_usuario();
+            actualizar_usuario(1);
+            get_usuarios();
+
+
 
         }
         else{

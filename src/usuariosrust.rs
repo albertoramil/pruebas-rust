@@ -52,3 +52,21 @@ pub fn actualizar_usuario(id_usuario:i32){
         println!("Se ha producido un error al actualizar el usuario con id {}",id_usuario)
     }
 }
+
+
+pub fn actualizar_usuario_entero(nome: String) -> Result<Usuariosrust, diesel::result::Error> {
+    use self::schema::usuariosrust::dsl::*;
+    let conn = &mut establish_connection();
+   
+   usuariosrust.filter(nombre.eq(nome)).first(conn)
+
+
+}
+
+
+pub fn get_usuarioid(id: i32) -> Result<Usuariosrust, diesel::result::Error> {
+    use self::schema::usuariosrust::dsl::*;
+    let conn = &mut establish_connection();
+    usuariosrust.filter(id.eq(id)).first(conn)
+}
+

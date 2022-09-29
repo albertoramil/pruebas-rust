@@ -14,6 +14,7 @@ use crate::triangulorectangulotype::Triangulo;
 use crate::getapi::get;
 use crate::usuariosrust::get_usuarios;
 use crate::usuariosrust::crear_usuario;
+use crate::usuariosrust::get_usuarioid;
 
 use crate::usuariosrust::actualizar_usuario;
 
@@ -116,6 +117,7 @@ pub mod rlib;
             crear_usuario();
             actualizar_usuario(1);
             get_usuarios();
+            println!("usuario {:?} encontrado!", get_usuarioid(1));
 
 
 

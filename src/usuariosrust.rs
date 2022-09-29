@@ -50,7 +50,10 @@ pub fn crear_usuario(){
     let apellidos_info = String::from("titooooo");
     use self::schema::usuariosrust::dsl::*;
 
-    let nuevo_usuario:Usuariosrust = Usuariosrust {id:2,nombre:nombre_info, apellidos:apellidos_info };
+
+   
+
+    let nuevo_usuario:NuevoUsuario = NuevoUsuario {nombre:nombre_info, apellidos:apellidos_info };
 
 
 

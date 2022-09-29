@@ -15,6 +15,8 @@ use crate::getapi::get;
 use crate::usuariosrust::get_usuarios;
 use crate::usuariosrust::crear_usuario;
 use crate::usuariosrust::get_usuarioid;
+use crate::usuariosrust::get_usuarioidupdate;
+
 
 use crate::usuariosrust::actualizar_usuario;
 
@@ -115,9 +117,10 @@ pub mod rlib;
 
             get_usuarios();
             crear_usuario();
-            actualizar_usuario(1);
+            actualizar_usuario(3);
             get_usuarios();
-            println!("usuario {:?} encontrado!", get_usuarioid(1));
+            get_usuarioidupdate(5);
+            get_usuarios();
 
 
 

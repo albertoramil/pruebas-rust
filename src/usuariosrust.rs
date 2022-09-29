@@ -11,14 +11,14 @@ pub fn get_usuarios() {
     let connection = &mut establish_connection();
     use self::schema::usuariosrust::dsl::*;
     let results = usuariosrust
-        .limit(5)
+        .limit(10)
         .load::<Usuariosrust>(connection)
         .expect("Error obteniendo los usuarios");
 
     for usuario in results {
         println!(
-            "Nombre usuario: {}, apellidos: {} ",
-            usuario.nombre, usuario.apellidos
+            "Nombre usuario: {}, apellidos: {} , id: {} ",
+            usuario.nombre, usuario.apellidos,usuario.id
         );
     }
 }
@@ -64,9 +64,35 @@ pub fn actualizar_usuario_entero(nome: String) -> Result<Usuariosrust, diesel::r
 }
 
 
-pub fn get_usuarioid(id: i32) -> Result<Usuariosrust, diesel::result::Error> {
+
+pub fn get_usuarioid(id: i32) -> Usuariosrust {
     use self::schema::usuariosrust::dsl::*;
     let conn = &mut establish_connection();
-    usuariosrust.filter(id.eq(id)).first(conn)
+    let userbd =usuariosrust.filter(id.eq(id)).first(conn);
+    let user =userbd.unwrap();
+
+    println!("usuario {:?} encontrado!",user);
+
+
+    
+
+    user
+
+}
+
+
+
+pub fn get_usuarioidupdate(id: i32) ->Usuariosrust {
+    use self::schema::usuariosrust::dsl::*;
+    let conn = &mut establish_connection();
+    let userbd =usuariosrust.filter(id.eq(5)).first(conn);
+    let user =userbd.unwrap();
+
+    let userbd2= diesel::update(usuariosrust::find(usuariosrust, 4))
+        .set(&user) 
+        .execute(conn); 
+        let user2 =userbd2.unwrap();
+        
+        user 
 }
 

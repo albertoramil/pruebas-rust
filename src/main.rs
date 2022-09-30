@@ -16,6 +16,7 @@ use crate::usuariosrust::get_usuarios;
 use crate::usuariosrust::crear_usuario;
 use crate::usuariosrust::get_usuarioid;
 use crate::usuariosrust::get_usuarioidupdate;
+use serde_json::json;
 
 
 use crate::usuariosrust::actualizar_usuario;
@@ -125,9 +126,34 @@ pub mod rlib;
 
 
         }
-        else{
-          println!("Incorrecto");
-          println!("Vuelve intentarlo");
+        else  if entrada.accion == "x" {
+            
+            // let mut persona = json!({
+            //     "nombre": "John Doe",
+            //     "edad": 43,
+            //     "telefonos": [
+            //         "34664646",
+            //         "46464646"
+            //     ]
+            // });
+        
+            // println!("primer nimero: {}", persona["telefonos"][0]);
+            #[derive(Debug)]
+
+            pub  struct  User {
+                active: bool,
+                username: String,
+                email: String,
+                sign_in_count: u64,
+            }
+            let mut user1 = User {
+                email: String::from("someone@example.com"),
+                username: String::from("someusername123"),
+                active: true,
+                sign_in_count: 1,
+            };
+            user1.email = String::from("anotheremail@example.com");
+            println!("Triangulo {:?} print!", user1);
 
         }
     }

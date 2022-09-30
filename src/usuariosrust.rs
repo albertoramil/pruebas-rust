@@ -85,10 +85,10 @@ pub fn get_usuarioid(id: i32) -> Usuariosrust {
 pub fn get_usuarioidupdate(id: i32) ->Usuariosrust {
     use self::schema::usuariosrust::dsl::*;
     let conn = &mut establish_connection();
-    let userbd =usuariosrust.filter(id.eq(5)).first(conn);
+    let userbd =usuariosrust.filter(id.eq(1)).first(conn);
     let user =userbd.unwrap();
 
-    let userbd2= diesel::update(usuariosrust::find(usuariosrust, 4))
+    let userbd2= diesel::update(usuariosrust::find(usuariosrust, 10))
         .set(&user) 
         .execute(conn); 
         let user2 =userbd2.unwrap();

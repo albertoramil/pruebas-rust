@@ -26,7 +26,33 @@ pub mod rlib;
 
 
 
- fn main() {
+use serde::Deserialize;
+
+use async_odoors::odoo::{deserialize_odoo_nullable, Odoo};
+
+#[derive(Deserialize, Debug)]
+struct ProductTemplate {
+    name: String,
+    #[serde(deserialize_with = "deserialize_odoo_nullable")]
+    default_code: Option<String>,
+}
+
+async fn get_odoo() -> Odoo {
+    let odoo = Odoo::new("https://demo.odoo.com", "");
+    let values = odoo.start().await.unwrap();
+    Odoo::new_and_login(
+        values.get("host").unwrap(),
+        values.get("database").unwrap(),
+        values.get("user").unwrap(),
+        values.get("password").unwrap(),
+    )
+    .await
+    .unwrap()
+}
+
+#[tokio::main]
+
+async fn main() {
     println!("mostrat {}", muestra());
     //  let palabra String ="estomismo";
 
@@ -139,7 +165,6 @@ pub mod rlib;
         
             // println!("primer nimero: {}", persona["telefonos"][0]);
             #[derive(Debug)]
-
             pub  struct  User {
                 active: bool,
                 username: String,
@@ -153,7 +178,36 @@ pub mod rlib;
                 sign_in_count: 1,
             };
             user1.email = String::from("anotheremail@example.com");
+            user1.active = bool::from(true);
+            user1.username = String::from("este otrom");
+
             println!("Triangulo {:?} print!", user1);
+
+        } else  if entrada.accion == "odoo" {
+            
+         
+    let odoo: Odoo = get_odoo().await;
+
+    let product_template: Vec<ProductTemplate> = odoo
+        .search_read(
+            "product.template",
+            (),
+            Some(vec!["name", "default_code"]),
+            None,
+            None,
+        )
+        .await
+        .unwrap()
+        .result;
+    println!("{:?}", product_template);
+
+    for product in product_template.iter() {
+        println!(
+            "[{}] {}",
+            product.default_code.as_ref().unwrap_or(&String::from("")),
+            product.name
+        );
+    }
 
         }
     }
